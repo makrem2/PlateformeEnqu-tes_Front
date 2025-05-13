@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+@import "ngx-toastr/toastr";
+
+/* 🌞 Mode clair */
+:root[data-theme="light"] {
+  --bg-color: #ffffff;
+  --text-color: #333;
+  --toggle-bg: #e0e0e0;
+}
+
+/* 🌙 Mode sombre */
+:root[data-theme="dark"] {
+  --bg-color: #181818;
+  --text-color: #f5f5f5;
+  --toggle-bg: #333;
+}
+
+/* Appliquer les variables */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Style du bouton */
+.theme-toggle-btn {
+  width: 40px;
+  height: 40px;
+  background-color: var(--toggle-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  font-size: 20px;
+  transition: background 0.3s ease-in-out;
+}
