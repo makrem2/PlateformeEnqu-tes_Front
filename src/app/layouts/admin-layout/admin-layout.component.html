@@ -1,2 +1,198 @@
-<p>admin-layout works!</p>
-<router-outlet></router-outlet>
+<aside class="sidebar" [ngClass]="{ 'sidebar-open': isSidebarOpen }">
+    <button type="button" class="sidebar-close-btn" (click)="closeSidebar()">
+        <i class="ph ph-x"></i>
+    </button>
+    <div>
+        <a routerLink="/admin" class="sidebar-logo">
+            <img src="assets/images/logo.png" alt="site logo"
+                class="light-logo" />
+            <img src="assets/images/logo.png" alt="site logo"
+                class="dark-logo" />
+            <img
+                src="assets/images/logo-icon.png"
+                alt="site logo"
+                class="logo-icon" />
+        </a>
+    </div>
+    <div class="sidebar-menu-area">
+        <ul class="sidebar-menu" id="sidebar-menu">
+            <!-- Tableau de Bord -->
+            <li>
+                <a routerLink="/admin/dashboard">
+                    <i class="ph ph-house"></i>
+                    <span>Tableau de bord</span>
+                </a>
+            </li>
+
+            <li class="sidebar-menu-group-title">Gestion</li>
+
+            <!-- Gestion des entreprises -->
+            <li
+                [ngClass]="{ dropdown: true, 'dropdown-open': activeMenu === 'entreprises' }"
+                (click)="toggleSubmenu('entreprises')">
+                <a href="javascript:void(0)">
+                    <i class="ph ph-buildings"></i>
+                    <span>Entreprises</span>
+                </a>
+                <ul class="sidebar-submenu"
+                    [ngClass]="{ show: activeMenu === 'entreprises' }">
+                    <li>
+                        <a routerLink="/admin/entreprises">
+                            <i
+                                class="ri-circle-fill circle-icon text-primary-600"></i>
+                            Liste des entreprises
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/admin/entreprise/add">
+                            <i
+                                class="ri-circle-fill circle-icon text-success-main"></i>
+                            Ajouter une entreprise
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Gestion des enquêtes -->
+            <li
+                [ngClass]="{ dropdown: true, 'dropdown-open': activeMenu === 'enquetes' }"
+                (click)="toggleSubmenu('enquetes')">
+                <a href="javascript:void(0)">
+                    <i class="ph ph-file-text"></i>
+                    <span>Enquêtes</span>
+                </a>
+                <ul class="sidebar-submenu"
+                    [ngClass]="{ show: activeMenu === 'enquetes' }">
+                    <li>
+                        <a routerLink="/admin/enquetes">
+                            <i
+                                class="ri-circle-fill circle-icon text-primary-600"></i>
+                            Liste des enquêtes
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/admin/enquete/create">
+                            <i
+                                class="ri-circle-fill circle-icon text-success-main"></i>
+                            Créer une enquête
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Réponses des entreprises -->
+            <li>
+                <a routerLink="/admin/reponses">
+                    <i class="ph ph-check-square"></i>
+                    <span>Réponses reçues</span>
+                </a>
+            </li>
+
+            <!-- Statistiques -->
+            <li>
+                <a routerLink="/admin/statistiques">
+                    <i class="ph ph-chart-bar"></i>
+                    <span>Statistiques</span>
+                </a>
+            </li>
+
+            <!-- Paramètres -->
+            <li>
+                <a routerLink="/admin/myprofile">
+                    <i class="ph ph-gear"></i>
+                    <span>Paramètres</span>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</aside>
+
+<main class="dashboard-main">
+    <div class="navbar-header">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-auto">
+                <div class="d-flex flex-wrap align-items-center gap-4">
+                    <button
+                        type="button"
+                        class="sidebar-toggle"
+                        (click)="toggleSidebar()">
+                        <i class="ph ph-list"></i>
+                    </button>
+                    <button type="button" class="sidebar-mobile-toggle">
+                        <i class="ph ph-list"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="d-flex flex-wrap align-items-center gap-3">
+                    <button
+                        type="button"
+                        (click)="toggleTheme()"
+                        class="theme-toggle-btn">
+                        <i
+                            [class]="isDarkMode ? 'ri-moon-line' : 'ri-sun-line'"></i>
+                    </button>
+                    <div class="dropdown">
+                        <button
+                            class="d-flex justify-content-center align-items-center rounded-circle"
+                            type="button"
+                            data-bs-toggle="dropdown">
+                            <img
+                                src="{{ imagepath }}{{ UserData?.photo_profil }}"
+                                alt="{{ UserData?.username }}"
+                                class="w-40-px h-40-px object-fit-cover rounded-circle"
+                                (error)="onImageError($event)" />
+                        </button>
+                        <div class="dropdown-menu to-top dropdown-menu-sm">
+                            <div
+                                class="py-12 px-16 radius-8 bg-primary-50 mb-16 d-flex align-items-center justify-content-between gap-2">
+                                <div>
+                                    <h6
+                                        class="text-lg text-primary-light fw-semibold mb-2">
+                                        {{ UserData?.username }}
+                                    </h6>
+                                    <span
+                                        class="text-secondary-light fw-medium text-sm">{{
+                                        role
+                                        }}</span>
+                                </div>
+                                <button type="button" class="hover-text-danger">
+                                    <i class="ph ph-x"></i>
+                                </button>
+                            </div>
+                            <ul class="to-top-list">
+                                <li>
+                                    <a style="cursor: pointer"
+                                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                                        routerLink="/admin/myprofile">
+                                        <i class="ph ph-user"></i>
+                                        My Profile</a>
+                                </li>
+                                <li>
+                                    <a style="cursor: pointer"
+                                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3"
+                                        (click)="LogOut()">
+                                        <i class="ph ph-power"></i>
+                                        Log Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Profile dropdown end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-main-body">
+        <router-outlet></router-outlet>
+    </div>
+    <footer class="d-footer">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-auto">
+                <p class="mb-0">© 2025. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+</main>

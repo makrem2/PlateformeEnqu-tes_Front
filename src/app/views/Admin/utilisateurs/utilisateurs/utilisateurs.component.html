@@ -1,0 +1,215 @@
+<div
+  class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+  <h6 class="fw-semibold mb-0">Utilisateurs</h6>
+  <ul class="d-flex align-items-center gap-2">
+    <li class="fw-medium">
+      <a
+        routerlink="/admin"
+        class="d-flex align-items-center gap-1 hover-text-primary">
+        <i class="ph ph-cube"></i>
+        Dashboard
+      </a>
+    </li>
+    <li>-</li>
+    <li class="fw-medium">utilisateurs</li>
+  </ul>
+</div>
+
+<div class="card basic-data-table">
+  <div class="card-body" style="overflow-x: auto; width: 100%">
+    <form class="navbar-search">
+      <input type="text" name="search" placeholder="Search"
+        [(ngModel)]="searchText" />
+    </form>
+    <a (click)="Adduser()" style="float: right;" class="btn btn-info">
+      Ajouter un utilisateur</a>
+    <br />
+    <br />
+    <table class="table bordered-table mb-0">
+      <thead>
+        <tr>
+          <th scope="col">Photo</th>
+          <th scope="col">Username</th>
+          <th scope="col">Email</th>
+          <th scope="col">Rôle</th>
+          <th scope="col">is_active</th>
+          <th scope="col">isVerified</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of UserData | adminuserfilter: searchText">
+          <td>
+            <img
+              [src]="imagepath + user.photo_profil"
+              alt="Photo de {{ user.username }}"
+              class="flex-shrink-0 me-12 radius-8"
+              width="40"
+              height="40" (error)="onImageError($event)"/>
+          </td>
+          <td>
+            <h6 class="text-md mb-0 fw-medium flex-grow-1">
+              {{ user.username }}
+            </h6>
+          </td>
+          <td>{{ user.email }}</td>
+          <td *ngFor="let role of user.roles">{{ role.name }}</td>
+          <td>
+            <span
+              [ngClass]="{
+                'bg-success-focus text-success-main': user.is_active,
+                'bg-danger-focus text-danger-main': !user.is_active
+              }"
+              class="px-24 py-4 rounded-pill fw-medium text-sm">
+              {{ user.is_active ? "Actif" : "Inactif" }}
+            </span>
+          </td>
+
+          <td>
+            <span
+              [ngClass]="{
+                'bg-success-focus text-success-main': user.isVerified,
+                'bg-warning-focus text-warning-main': !user.isVerified
+              }"
+              class="px-24 py-4 rounded-pill fw-medium text-sm">
+              {{ user.isVerified ? "Vérifié" : "Non vérifié" }}
+            </span>
+          </td>
+          <td>
+            <a
+              (click)="Edit_Voir_User(user.user_id)"
+              style="margin-left: 5px; cursor: pointer"
+              class="w-32-px h-32-px bg-info-focus text-info-main rounded-circle d-inline-flex align-items-center justify-content-center">
+              <i class="ph ph-eye"></i>
+            </a>
+            <a
+              style="margin-left: 5px; cursor: pointer"
+              (click)="Edit_Voir_User(user.user_id)"
+              class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
+              <i class="ph ph-pen"></i>
+            </a>
+            <a
+              style="margin-left: 5px; cursor: pointer"
+              data-bs-toggle="modal"
+              data-bs-target="#delete"
+              (click)="GetIdUserToDeleteUser(user.user_id)"
+              class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
+              <i class="ph ph-trash"></i>
+            </a>
+            <a
+              style="margin-left: 5px; cursor: pointer"
+              *ngIf="user.is_active"
+              data-bs-toggle="modal"
+              data-bs-target="#block"
+              (click)="BlockUser(user.user_id)"
+              class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
+              <i class="ph ph-lock"></i>
+            </a>
+            <a
+              style="margin-left: 5px; cursor: pointer"
+              *ngIf="!user.is_active"
+              data-bs-toggle="modal"
+              data-bs-target="#block"
+              (click)="UnBlockUser(user.user_id)"
+              class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
+              <i class="ph ph-lock-key-open"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <nav class="pagination-container">
+      <ul class="pagination" style="cursor: pointer">
+        <li
+          *ngFor="let page of [].constructor(totalPages); let i = index"
+          [class.active]="i + 1 === p">
+          <a (click)="onPageChange(i + 1)">{{ i + 1 }}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<!-- Modal delete User -->
+<div
+  class="modal fade"
+  id="delete"
+  tabindex="-1"
+  aria-labelledby="delete"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog modal-dialog-centered">
+    <div class="modal-content radius-16 bg-base">
+      <div
+        class="modal-header py-16 px-24 border border-top-0 border-start-0 border-end-0">
+        <h1 class="modal-title fs-5" id="delete">Delete User</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-24">
+        êtes-vous sûr de vouloir supprimer cette User
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          (click)="DeleteUser()"
+          class="btn btn-danger"
+          data-bs-dismiss="modal">
+          Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Block || Unblock -->
+
+<div
+  class="modal fade"
+  id="block"
+  tabindex="-1"
+  aria-labelledby="block"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog modal-dialog-centered">
+    <div class="modal-content radius-16 bg-base">
+      <div
+        class="modal-header py-16 px-24 border border-top-0 border-start-0 border-end-0">
+        <h1 class="modal-title fs-5" id="block">
+          {{ BlockOrUnblock ? "Block" : "Unblock" }} User
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-24">
+        êtes-vous sûr de vouloir
+        {{ BlockOrUnblock ? "Block" : "Unblock" }} cette User
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          (click)="BlockUnblockUser()"
+          [ngClass]="BlockOrUnblock ? 'btn btn-danger' : 'btn btn-success'"
+          data-bs-dismiss="modal">
+          {{ BlockOrUnblock ? "Block" : "Unblock" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading-container" *ngIf="loading">
+  <div class="loading">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>

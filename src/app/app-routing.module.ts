@@ -15,10 +15,17 @@ const routes: Routes = [
   {path:'admin',component:AdminLayoutComponent , canActivate: [adminGuard], children : [
     {path: '', loadChildren: () => import('./views/Admin/admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardModule) },
     {path:'dashboard' , loadChildren:()=>import('./views/Admin/admin-dashboard/admin-dashboard.module').then(m=>m.AdminDashboardModule)},
+    {path:'myprofile' , loadChildren:()=>import('./views/Admin/myprofile/myprofile.module').then(m=>m.MyprofileModule)},
+    {path:'utilisateurs' , loadChildren:()=>import('./views/Admin/utilisateurs/utilisateurs.module').then(m=>m.UtilisateursModule)},
+    {path:'user/edit' , loadChildren:()=>import('./views/Admin/edit-user/edit-user.module').then(m=>m.EditUserModule)},
+    {path:'user/add' , loadChildren:()=>import('./views/Admin/add-user/add-user.module').then(m=>m.AddUserModule)},
+
   ]},
   {path:'entreprise',component:EntrepriseLayoutComponent ,canActivate: [entrepriseGuard], children : [
     {path: '', loadChildren: () => import('./views/Entreprise/entreprise-dashboard/entreprise-dashboard.module').then(m => m.EntrepriseDashboardModule) },
     {path:'dashboard' , loadChildren:()=>import('./views/Entreprise/entreprise-dashboard/entreprise-dashboard.module').then(m=>m.EntrepriseDashboardModule)},
+    {path:'myprofile' , loadChildren:()=>import('./views/Entreprise/myprofile/myprofile.module').then(m=>m.MyprofileModule)},
+
   ]},
   {path:'',component:SignInComponent},
   {path:'register',component:SignUpComponent},

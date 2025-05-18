@@ -78,19 +78,18 @@ export class UserService {
   }
 
   updateUserPassword(id: any, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/updateUserPassword/${id}`, data);
+    return this.http.patch(`${this.apiUrl}/updateUserPassword/${id}`, data);
   }
 
   updateUserImage(id: any, data: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/updateUserImage/${id}`, data);
   }
 
-  blockUser(user_id: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/blockUser/${user_id}`, {});
-  }
-
-  unblockUser(user_id: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/unblockUser/${user_id}`, {});
+  toggleUserStatus(user_id: any): Observable<any> {
+    return this.http.patch(
+      `${this.apiUrl}/status/toggleUserStatus/${user_id}`,
+      {}
+    );
   }
 
 }

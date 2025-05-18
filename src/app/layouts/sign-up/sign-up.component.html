@@ -51,25 +51,25 @@
 
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="nom">Nom</label>
+            <label for="nom">Nom Entreprise</label>
             <input
               type="text"
               id="nom"
               class="form-control"
               formControlName="nom"
-              placeholder="Nom"
+              placeholder="Nom Entreprise"
               required
             />
           </div>
 
           <div class="col-md-6 mb-3">
-            <label for="prenom">Prénom</label>
+            <label for="secteur">Secteur</label>
             <input
               type="text"
-              id="prenom"
+              id="secteur"
               class="form-control"
-              formControlName="prenom"
-              placeholder="Prénom"
+              formControlName="secteur"
+              placeholder="secteur"
               required
             />
           </div>
@@ -89,12 +89,12 @@
           </div>
 
           <div class="col-md-6 mb-3">
-            <label for="date_naissance">Date de naissance</label>
+            <label for="ville">Ville</label>
             <input
-              type="date"
-              id="date_naissance"
+              type="text"
+              id="ville"
               class="form-control"
-              formControlName="date_naissance"
+              formControlName="ville"
               required
             />
           </div>
@@ -114,16 +114,15 @@
           </div>
 
           <div class="col-md-6 mb-3">
-            <label for="genre">Genre</label>
-            <select
-              name="genre"
-              id="genre"
+            <label for="pays">Pays</label>
+                        <input
+              type="text"
+              id="pays"
               class="form-control"
-              formControlName="genre"
-            >
-              <option value="Homme">Homme</option>
-              <option value="Femme">Femme</option>
-            </select>
+              formControlName="pays"
+              placeholder="pays"
+              required
+            />
           </div>
         </div>
 

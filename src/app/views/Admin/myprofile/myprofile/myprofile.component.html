@@ -1,0 +1,308 @@
+<div
+  class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+  <h6 class="fw-semibold mb-0">View Profile</h6>
+  <ul class="d-flex align-items-center gap-2">
+    <li class="fw-medium">
+      <a
+        routerlink="/admin"
+        class="d-flex align-items-center gap-1 hover-text-primary">
+        <i class="ph ph-cube"></i>
+        Dashboard
+      </a>
+    </li>
+    <li>-</li>
+    <li class="fw-medium">View Profile</li>
+  </ul>
+</div>
+
+<div class="row gy-4" [formGroup]="userForm">
+  <!-- Profile Sidebar -->
+  <div class="col-lg-4">
+    <div
+      class="user-grid-card position-relative border radius-16 overflow-hidden bg-base h-100">
+      <img
+        src="assets/images/user-grid/user-grid-bg1.png"
+        alt
+        class="w-100 object-fit-cover" />
+      <div class="pb-24 ms-16 mb-24 me-16 mt--100">
+        <div
+          class="text-center border border-top-0 border-start-0 border-end-0">
+          <img
+            [src]="'http://localhost:8081/'+this.UserData?.photo_profil"
+            alt="{{ userForm.value.username }}"
+            class="border br-white border-width-2-px w-200-px h-200-px rounded-circle object-fit-cover"
+            (error)="onImageError($event)" />
+          <h6 class="mb-0 mt-16">{{ userForm.value.username }}</h6>
+          <span class="text-secondary-light mb-16">{{
+            userForm.value.email
+            }}</span>
+        </div>
+        <div class="mt-24">
+          <h6 class="text-xl mb-16">Personal Info</h6>
+          <ul>
+            <li class="d-flex align-items-center gap-1 mb-12">
+              <span
+                class="w-30 text-md fw-semibold text-primary-light">Email</span>
+              <span class="w-70 text-secondary-light fw-medium">: {{
+                userForm.value.email }}</span>
+            </li>
+            <li class="d-flex align-items-center gap-1 mb-12">
+              <span
+                class="w-30 text-md fw-semibold text-primary-light">Username</span>
+              <span class="w-70 text-secondary-light fw-medium">: {{
+                userForm.value.username }}</span>
+            </li>
+            <li class="d-flex align-items-center gap-1 mb-12">
+              <span
+                class="w-30 text-md fw-semibold text-primary-light">Téléphone</span>
+              <span class="w-70 text-secondary-light fw-medium">: {{
+                userForm.value.telephone }}</span>
+            </li>
+            <li class="d-flex align-items-center gap-1 mb-12">
+              <span
+                class="w-30 text-md fw-semibold text-primary-light">Adresse</span>
+              <span class="w-70 text-secondary-light fw-medium">: {{
+                userForm.value.adresse }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="col-lg-8">
+    <div class="card h-100">
+      <div class="card-body p-24">
+        <ul
+          class="nav border-gradient-tab nav-pills mb-20 d-inline-flex"
+          id="pills-tab"
+          role="tablist">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link d-flex align-items-center px-24 active"
+              data-bs-toggle="pill"
+              data-bs-target="#edit-profile"
+              type="button"
+              role="tab">
+              Edit Profile
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link d-flex align-items-center px-24"
+              data-bs-toggle="pill"
+              data-bs-target="#change-password"
+              type="button"
+              role="tab">
+              Change Password
+            </button>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <!-- Edit Profile Tab -->
+          <div class="tab-pane fade show active" id="edit-profile">
+            <h6 class="text-md text-primary-light mb-16">Profile Image</h6>
+            <div class="mb-24 mt-16">
+              <div class="avatar-upload">
+                <div
+                  class="avatar-edit position-absolute bottom-0 end-0 me-24 mt-16 z-1 cursor-pointer">
+                  <input
+                    type="file"
+                    id="imageUpload"
+                    (change)="onFileSelected($event)"
+                    hidden />
+                  <label
+                    for="imageUpload"
+                    class="w-32-px h-32-px d-flex justify-content-center align-items-center bg-primary-50 text-primary-600 border border-primary-600 bg-hover-primary-100 text-lg rounded-circle">
+                    <i class="ph ph-camera"></i>
+                  </label>
+                </div>
+
+                <div class="avatar-preview">
+                  <img
+                    [src]="isLocalImage ? userForm.value.defaultImage : imagepath + UserData?.photo_profil"
+                    alt="{{ userForm.value.username }}"
+                    class="rounded-circle w-100 h-100 object-fit-cover"
+                    (error)="onImageError($event)" />
+                </div>
+              </div>
+            </div>
+
+            <form [formGroup]="userForm" (ngSubmit)="saveChanges()">
+              <div class="row">
+                <div class="col-sm-12 mb-3">
+                  <label class="form-label">Username</label>
+                  <input
+                    type="text"
+                    class="form-control radius-8"
+                    formControlName="username" />
+                </div>
+                <div class="col-sm-6 mb-3">
+                  <label class="form-label">Email</label>
+                  <input
+                    type="email"
+                    class="form-control radius-8"
+                    formControlName="email" />
+                </div>
+                <div class="col-sm-6 mb-3">
+                  <label class="form-label">Téléphone</label>
+                  <input
+                    type="text"
+                    class="form-control radius-8"
+                    formControlName="telephone" />
+                </div>
+                <div class="col-sm-12 mb-3">
+                  <label class="form-label">Adresse</label>
+                  <input
+                    type="text"
+                    class="form-control radius-8"
+                    formControlName="adresse" />
+                </div>
+              </div>
+              <div
+                class="d-flex justify-content-end gap-3 mt-3"
+                *ngIf="loading">
+                <button
+                  type="submit"
+                  class="btn btn-primary radius-8 px-4"
+                  [disabled]="userForm.invalid">
+                  Save Changes
+                </button>
+              </div>
+              <div
+                class="d-flex justify-content-end gap-3 mt-3"
+                *ngIf="!loading">
+                <button
+                  type="submit"
+                  class="btn btn-primary radius-8 px-4"
+                  [disabled]="true">
+                  <span
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"></span>
+                  Loading...
+                </button>
+              </div>
+
+              <!-- <div class="d-flex justify-content-end gap-3 mt-3">
+                <button
+                  type="reset"
+                  class="btn btn-outline-danger radius-8 px-4"
+                >
+                  Annuler
+                </button>
+                <button type="submit" class="btn btn-primary radius-8 px-4">
+                  Enregistrer
+                </button>
+              </div> -->
+            </form>
+          </div>
+
+          <!-- Change Password Tab -->
+          <div class="tab-pane fade" id="change-password">
+            <form [formGroup]="passwordForm" (ngSubmit)="updatePassword()">
+              <div class="mb-3">
+                <label class="form-label">Ancien mot de passe</label>
+                <input
+                  [type]="changetype ? 'password' : 'text'"
+                  class="form-control radius-8"
+                  formControlName="PreviousPassword" />
+                <div
+                  *ngIf="
+                    (f['PreviousPassword'].touched ||
+                      f['PreviousPassword'].dirty) &&
+                    f['PreviousPassword'].errors
+                  "
+                  class="invalid-feedback">
+                  <div *ngIf="f['PreviousPassword'].errors['required']">
+                    Le mot de passe précédent est requis
+                  </div>
+                  <div *ngIf="f['PreviousPassword'].errors['minlength']">
+                    Le mot de passe doit comporter au moins 8 caractères
+                  </div>
+                  <div *ngIf="f['PreviousPassword'].errors['maxlength']">
+                    Le mot de passe précédent ne doit pas dépasser 40 caractères
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Nouveau mot de passe</label>
+                <input
+                  [type]="changetype ? 'password' : 'text'"
+                  class="form-control radius-8"
+                  formControlName="NewPassword" />
+                <div
+                  *ngIf="
+                    (f['NewPassword'].touched || f['NewPassword'].dirty) &&
+                    f['NewPassword'].errors
+                  "
+                  class="invalid-feedback">
+                  <div *ngIf="f['NewPassword'].errors['required']">
+                    Un nouveau mot de passe est requis
+                  </div>
+                  <div *ngIf="f['NewPassword'].errors['minlength']">
+                    Le nouveau mot de passe doit comporter au moins 8 caractères
+                  </div>
+                  <div *ngIf="f['NewPassword'].errors['maxlength']">
+                    Le nouveau mot de passe ne doit pas dépasser 40 caractères
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Confirmer mot de passe</label>
+                <input
+                  [type]="changetype ? 'password' : 'text'"
+                  class="form-control radius-8"
+                  formControlName="confirmPassword" />
+                <div
+                  *ngIf="
+                    (f['confirmPassword'].touched ||
+                      f['confirmPassword'].dirty) &&
+                    f['confirmPassword'].errors
+                  "
+                  class="invalid-feedback">
+                  <div *ngIf="f['confirmPassword'].errors['required']">
+                    Confirmer le mot de passe est requis
+                  </div>
+                  <div *ngIf="f['confirmPassword'].errors['matching']">
+                    Le mot de passe de confirmation ne correspond pas
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="showPassword"
+                    (change)="togglePasswordVisibility()" />
+                  <label class="form-check-label" for="showPassword">
+                    Afficher les mots de passe
+                  </label>
+                </div>
+                <button type="submit" class="btn btn-primary radius-8">
+                  Changer mot de passe
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading-container" *ngIf="!loading">
+  <div class="loading">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
