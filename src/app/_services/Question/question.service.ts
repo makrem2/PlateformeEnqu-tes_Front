@@ -19,6 +19,11 @@ export class QuestionService {
     return this.http.get(`${this.apiUrl}/getQuestionById/${id}`);
   }
 
+  
+  getQuestionByEnquete_id(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getQuestionByEnquete_id/${id}`);
+  }
+
   createQuestion(data: any): Observable<any> {
     return this.http.post(this.apiUrl + '/createQuestion', data);
   }

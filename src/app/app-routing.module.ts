@@ -27,6 +27,8 @@ const routes: Routes = [
     {path: '', loadChildren: () => import('./views/Entreprise/entreprise-dashboard/entreprise-dashboard.module').then(m => m.EntrepriseDashboardModule) },
     {path:'dashboard' , loadChildren:()=>import('./views/Entreprise/entreprise-dashboard/entreprise-dashboard.module').then(m=>m.EntrepriseDashboardModule)},
     {path:'myprofile' , loadChildren:()=>import('./views/Entreprise/myprofile/myprofile.module').then(m=>m.MyprofileModule)},
+    {path:'enquetes-reçues' , loadChildren:()=>import('./views/Entreprise/enquetes-reçues/enquetes-reçues.module').then(m=>m.EnquetesReçuesModule)},
+    {path:'enquetes-repondues' , loadChildren:()=>import('./views/Entreprise/enquetes-repondues/enquetes-repondues.module').then(m=>m.EnquetesReponduesModule)},
 
   ]},
   {path:'',component:SignInComponent},

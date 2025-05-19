@@ -4,16 +4,15 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EnqueteService {
-
   private apiUrl = `${environment.apiUrl}enquete`;
 
   constructor(private http: HttpClient) {}
 
   getAllEnquetes(params: any): Observable<any> {
-    return this.http.get(this.apiUrl + "/getAllEnquetes", { params });
+    return this.http.get(this.apiUrl + '/getAllEnquetes', { params });
   }
 
   getEnqueteById(id: string): Observable<any> {
@@ -21,7 +20,7 @@ export class EnqueteService {
   }
 
   createEnquete(data: any): Observable<any> {
-    return this.http.post(this.apiUrl + "/createEnquete", data);
+    return this.http.post(this.apiUrl + '/createEnquete', data);
   }
 
   updateEnquete(id: string, data: any): Observable<any> {
@@ -32,4 +31,11 @@ export class EnqueteService {
     return this.http.delete(`${this.apiUrl}/deleteEnquete/${id}`);
   }
 
+  changestatusToEN_COURS(id: string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/changestatusToEN_COURS/${id}`, {});
+  }
+
+  assignEnqueteToEntreprises(entrepriseIds: any,id:any) {
+    return this.http.post(`${this.apiUrl}/assignEnqueteToEntreprises/${id}`, entrepriseIds);
+  }
 }

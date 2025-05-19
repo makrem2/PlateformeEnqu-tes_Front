@@ -1,0 +1,90 @@
+ <div
+    class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+    <h6 class="fw-semibold mb-0">Enquêtes reçues : {{Enquete?.titre}}</h6>
+    <ul class="d-flex align-items-center gap-2">
+        <li class="fw-medium">
+            <a routerLink="entreprise"
+                class="d-flex align-items-center gap-1 hover-text-primary">
+                Dashboard
+            </a>
+        </li>
+        <li>-</li>
+        <li class="fw-medium">Enquête</li>
+    </ul>
+</div>
+
+<div class="row gy-4">
+    <div class="col-lg-12">
+        <div class="card h-100">
+            <div class="card-header">
+                <p class="card-text">
+                    <strong>Description :</strong> {{ Enquete?.description
+                    }}<br />
+                    <strong>Type :</strong> {{ Enquete?.type }}<br />
+                    <strong>Date de début :</strong>
+                    {{ Enquete?.dateDebut | date: 'longDate' }}<br />
+                    <strong>Date de fin :</strong>
+                    {{ Enquete?.dateFin | date: 'longDate' }}<br />
+                    <strong>Statut :</strong>
+                    <span class="badge bg-info text-dark">{{ Enquete?.statut
+                        }}</span>
+                </p>
+            </div>
+            <div class="card-body">
+                <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div *ngFor="let q of questions">
+                        <label class="form-label fw-bold">{{ q.texte }}</label>
+
+                        <!-- TEXTE -->
+                        <input
+                            *ngIf="q.type === 'TEXTE'"
+                            type="text"
+                            class="form-control"
+                            [formControlName]="q.question_id" />
+
+                        <!-- CHOIX -->
+                        <select
+                            *ngIf="q.type === 'CHOIX'"
+                            class="form-select"
+                            [formControlName]="q.question_id">
+                            <option *ngFor="let opt of q.options"
+                                [value]="opt">{{ opt
+                                }}</option>
+                        </select>
+
+                        <!-- OUI_NON -->
+                        <div *ngIf="q.type === 'OUI_NON'">
+                            <div class="form-check form-check-inline">
+                                <input
+                                    type="radio"
+                                    class="form-check-input"
+                                    [value]="'Oui'"
+                                    [formControlName]="q.question_id"
+                                    [id]="q.question_id + '_oui'" />
+                                <label class="form-check-label"
+                                    [for]="q.question_id + '_oui'"
+                                    style="margin-left: 5px;"> Oui</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input
+                                    type="radio"
+                                    class="form-check-input"
+                                    [value]="'Non'"
+                                    [formControlName]="q.question_id"
+                                    [id]="q.question_id + '_non'" />
+                                <label class="form-check-label"
+                                    [for]="q.question_id + '_non'"
+                                    style="margin-left: 5px;"> Non</label>
+                            </div>
+                        </div>
+
+                        <hr />
+                    </div>
+
+                    <button type="submit"
+                        class="btn btn-primary mt-3">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+table, tr, td {
+  overflow: visible !important;
+}
+
+.table-responsive {
+  overflow: visible !important;
+}

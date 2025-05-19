@@ -39,10 +39,7 @@ export class CreateEnqueteComponent {
     this.enqueteService.createEnquete(this.enqueteForm.value).subscribe({
       next: (res) => {
         alert('✅ Enquête créée avec succès');
-        // Rediriger vers ajout de questions (id à récupérer du backend si renvoyé)
-        this.router.navigate(['/ajouter-questions'], {
-          queryParams: { enqueteId: res.id || res.enquete_id },
-        });
+        this.router.navigate(['/admin/enquetes']);
       },
       error: (err) => {
         console.error(err);

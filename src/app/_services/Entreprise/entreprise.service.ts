@@ -17,4 +17,8 @@ export class EntrepriseService {
   getOneEntreprise(id: any): Observable<any> {
     return this.http.get(`${this.apiUrl}/getOneEntreprise/${id}`);
   }
+
+  GetAllEntreprise(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/GetAllEntreprise`);
+  }
 }
