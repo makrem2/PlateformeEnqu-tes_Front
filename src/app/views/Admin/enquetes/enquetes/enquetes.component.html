@@ -1,0 +1,193 @@
+<!-- <div class="p-6">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-semibold text-gray-800">📋 Liste des
+            Enquêtes</h2>
+        <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            placeholder="🔍 Rechercher une enquête..."
+            class="border rounded px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
+    </div>
+
+    <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th
+                        class="px-6 py-3 text-left text-sm font-medium text-gray-700">Titre</th>
+                    <th
+                        class="px-6 py-3 text-left text-sm font-medium text-gray-700">Type</th>
+                    <th
+                        class="px-6 py-3 text-left text-sm font-medium text-gray-700">Deadline</th>
+                    <th
+                        class="px-6 py-3 text-left text-sm font-medium text-gray-700">Statut</th>
+                    <th
+                        class="px-6 py-3 text-right text-sm font-medium text-gray-700">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200"
+                *ngIf="filteredEnquetes().length > 0; else noData">
+                <tr *ngFor="let enquete of filteredEnquetes()">
+                    <td class="px-6 py-4 text-sm text-gray-800">{{ enquete.titre
+                        }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-600">{{ enquete.type
+                        }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-600">{{
+                        enquete.deadline | date: 'shortDate' }}</td>
+                    <td class="px-6 py-4">
+                        <span
+                            [ngClass]="{
+                'bg-green-100 text-green-700': enquete.statut === 'active',
+                'bg-red-100 text-red-700': enquete.statut === 'cloturee',
+                'bg-yellow-100 text-yellow-700': enquete.statut === 'en_attente'
+              }"
+                            class="px-3 py-1 rounded-full text-xs font-semibold uppercase">
+                            {{ enquete.statut }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-right text-sm">
+                        <button class="text-blue-600 hover:underline mr-2"
+                            (click)="viewEnquete(enquete)">Voir</button>
+                        <button class="text-yellow-600 hover:underline mr-2"
+                            (click)="editEnquete(enquete)">Modifier</button>
+                        <button class="text-red-600 hover:underline"
+                            (click)="deleteEnquete(enquete)">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <ng-template #noData>
+            <div class="p-4 text-center text-gray-500">Aucune enquête
+                trouvée.</div>
+        </ng-template>
+    </div>
+</div> -->
+
+<div
+    class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+    <h6 class="fw-semibold mb-0">📋 Liste des
+        Enquêtes</h6>
+    <ul class="d-flex align-items-center gap-2">
+        <li class="fw-medium">
+            <a routerLink
+                class="d-flex align-items-center gap-1 hover-text-primary">
+                Dashboard
+            </a>
+        </li>
+        <li>-</li>
+        <li class="fw-medium">📋 Liste des
+            Enquêtes</li>
+    </ul>
+</div>
+<div class="col-lg-12">
+    <div class="card">
+        <div
+            class="card-header d-flex justify-content-between align-items-center">
+            <button routerLink="/admin/enquete/create"
+                class="btn btn-info">Créer une enquête</button>
+            <input
+                type="text"
+                [(ngModel)]="searchTerm"
+                placeholder="🔍 Rechercher une enquête..."
+                class="form-control w-auto" />
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table border-primary-table mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Titre</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Statut</th>
+                            <th scope="col">date Debut</th>
+                            <th scope="col">date Fin</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="filteredEnquetes().length > 0; else noData">
+                        <tr *ngFor="let enquete of filteredEnquetes()">
+                            <td>{{ enquete.titre }}</td>
+                            <td>{{ enquete.type }}</td>
+                            <td>
+                                <span
+                                    class="px-3 py-1 rounded-pill fw-medium text-sm"
+                                    [ngClass]="{
+                    'bg-success text-white': enquete.statut === 'EN_COURS',
+                    'bg-danger text-white': enquete.statut === 'CLOTUREE',
+                    'bg-warning text-dark': enquete.statut === 'EN_ATTENTE'
+                  }">
+                                    {{ enquete.statut | titlecase }}
+                                </span>
+                            </td>
+                            <td>{{ enquete.dateDebut | date: 'shortDate' }}</td>
+                            <td>{{ enquete.dateFin | date: 'shortDate' }}</td>
+                            <td>
+                                <button
+                                    class="btn btn-sm btn-outline-primary me-1"
+                                    (click)="openModal(enquete.enquete_id)">Créer
+                                    Questions</button>
+
+                                <button
+                                    class="btn btn-sm btn-outline-primary me-1"
+                                    (click)="viewEnquete(enquete)">Voir</button>
+                                <button
+                                    class="btn btn-sm btn-outline-warning me-1"
+                                    (click)="editEnquete(enquete)">Modifier</button>
+                                <button class="btn btn-sm btn-outline-danger"
+                                    (click)="deleteEnquete(enquete)">Supprimer</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ng-template #noData>
+                    <tr>
+                        <td colspan="5" class="text-center py-4">Aucune enquête
+                            trouvée.</td>
+                    </tr>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Bootstrap -->
+<div class="modal fade" id="questionModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">➕ Ajouter une Question</h5>
+                <button type="button" class="btn-close"
+                    (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="questionForm" (ngSubmit)="submitQuestion()">
+                    <div class="mb-3">
+                        <label>Texte</label>
+                        <input type="text" class="form-control"
+                            formControlName="texte" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Type</label>
+                        <select class="form-select" formControlName="type"
+                            (change)="onTypeChange()">
+                            <option value="CHOIX">Choix multiple</option>
+                            <option value="TEXTE">Texte libre</option>
+                            <option value="OUI_NON">Oui / Non</option>
+                        </select>
+                    </div>
+                    <div class="mb-3"
+                        *ngIf="questionForm.get('type')?.value === 'CHOIX'">
+                        <label>Options (séparées par des virgules)</label>
+                        <input type="text" class="form-control"
+                            formControlName="options" />
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-success">✅
+                            Ajouter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

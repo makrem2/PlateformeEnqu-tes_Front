@@ -30,13 +30,13 @@ export class AddUserComponent implements OnInit, OnDestroy {
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       nom: ['', Validators.required],
-      prenom: ['', Validators.required],
-      genre: ['', Validators.required],
+      secteur: ['', Validators.required],
+      ville: ['', Validators.required],
+      pays: ['', Validators.required],
       telephone: ['', Validators.required],
-      date_naissance: ['', Validators.required],
       adresse: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      roles: [false, Validators.required],
+      roles: [['entreprise']],
     });
   }
 
@@ -58,8 +58,7 @@ export class AddUserComponent implements OnInit, OnDestroy {
     this.isSubmitting = true;
     if (this.signupForm.valid) {
       const user = this.signupForm.value;
-
-      user.roles = [this.signupForm.value.roles];
+      user.roles = [Role.entreprise];
 
       this.authService
         .signup(user)
@@ -70,15 +69,13 @@ export class AddUserComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (res) => {
             this.tostor.success("s'inscrire avec succès", res.message);
-            this.setLoadingState(false);
-            this.isSubmitting = false;
-            this.signupForm.reset();
           },
           error: (err) => {
             this.tostor.error('échec du registre', err);
-            this.setLoadingState(false);
+          },
+          complete: () => {
             this.isSubmitting = false;
-          }
+          },
         });
     } else {
       this.tostor.error('Login failed', 'Form is invalid');

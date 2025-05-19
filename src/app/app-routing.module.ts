@@ -16,9 +16,11 @@ const routes: Routes = [
     {path: '', loadChildren: () => import('./views/Admin/admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardModule) },
     {path:'dashboard' , loadChildren:()=>import('./views/Admin/admin-dashboard/admin-dashboard.module').then(m=>m.AdminDashboardModule)},
     {path:'myprofile' , loadChildren:()=>import('./views/Admin/myprofile/myprofile.module').then(m=>m.MyprofileModule)},
-    {path:'utilisateurs' , loadChildren:()=>import('./views/Admin/utilisateurs/utilisateurs.module').then(m=>m.UtilisateursModule)},
-    {path:'user/edit' , loadChildren:()=>import('./views/Admin/edit-user/edit-user.module').then(m=>m.EditUserModule)},
-    {path:'user/add' , loadChildren:()=>import('./views/Admin/add-user/add-user.module').then(m=>m.AddUserModule)},
+    {path:'entreprises' , loadChildren:()=>import('./views/Admin/utilisateurs/utilisateurs.module').then(m=>m.UtilisateursModule)},
+    {path:'entreprise/edit' , loadChildren:()=>import('./views/Admin/edit-user/edit-user.module').then(m=>m.EditUserModule)},
+    {path:'entreprise/add' , loadChildren:()=>import('./views/Admin/add-user/add-user.module').then(m=>m.AddUserModule)},
+    {path:'enquetes' , loadChildren:()=>import('./views/Admin/enquetes/enquetes.module').then(m=>m.EnquetesModule)},
+    {path:'enquete/create' , loadChildren:()=>import('./views/Admin/create-enquete/create-enquete.module').then(m=>m.CreateEnqueteModule)},
 
   ]},
   {path:'entreprise',component:EntrepriseLayoutComponent ,canActivate: [entrepriseGuard], children : [
