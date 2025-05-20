@@ -17,13 +17,14 @@ export const adminGuard: CanActivateFn = (
   const router = inject(Router);
   const authService = inject(AuthenticationService);
   const tokenService = inject(TokenServiceService);
+
   if (!tokenService.isTokenValid()) {
-    const userId = localStorage.getItem('Id_Key');
     tokenService.clearTokens();
-    if (userId) {
-      return router.createUrlTree(['/']);
-    }
+    return router.createUrlTree(['/'], {
+      queryParams: { returnUrl: state.url },
+    });
   }
+
   return authService.isAdmin()
     ? true
     : router.createUrlTree(['/'], {

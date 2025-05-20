@@ -21,6 +21,7 @@ const routes: Routes = [
     {path:'entreprise/add' , loadChildren:()=>import('./views/Admin/add-user/add-user.module').then(m=>m.AddUserModule)},
     {path:'enquetes' , loadChildren:()=>import('./views/Admin/enquetes/enquetes.module').then(m=>m.EnquetesModule)},
     {path:'enquete/create' , loadChildren:()=>import('./views/Admin/create-enquete/create-enquete.module').then(m=>m.CreateEnqueteModule)},
+    {path:'enquete/reponses' , loadChildren:()=>import('./views/Admin/reponsesrecues/reponsesrecues.module').then(m=>m.ReponsesrecuesModule)},
 
   ]},
   {path:'entreprise',component:EntrepriseLayoutComponent ,canActivate: [entrepriseGuard], children : [

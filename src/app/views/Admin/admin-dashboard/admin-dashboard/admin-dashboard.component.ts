@@ -29,29 +29,29 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   loadCharts() {
-    // this.statadminService.getTotalEnquetesParEntreprise().subscribe((data) => {
+    this.statadminService.getTotalEnquetesParEntreprise().subscribe((data) => {
 
-    //   console.log('Total Enquetes:', data);
-    //   const labels = data.map((d: any) => d.entreprise);
-    //   const counts = data.map((d: any) => d.total);
+      console.log('Total Enquetes:', data);
+      const labels = data.map((d: any) => d.nom);
+      const counts = data.map((d: any) => d.totalEnquetes);
 
-    //   new Chart('enquetesParEntrepriseChart', {
-    //     type: 'bar',
-    //     data: {
-    //       labels: labels,
-    //       datasets: [
-    //         {
-    //           label: 'Nombre d’enquêtes',
-    //           data: counts,
-    //           backgroundColor: '#FF7043',
-    //         },
-    //       ],
-    //     },
-    //   });
-    // });
+      new Chart('enquetesParEntrepriseChart', {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Nombre d’enquêtes',
+              data: counts,
+              backgroundColor: '#FF7043',
+            },
+          ],
+        },
+      });
+    });
 
     this.statadminService.getTauxReponseParEntreprise().subscribe((data) => {
-      const labels = data.map((d: any) => d.entrepriseId);
+      const labels = data.map((d: any) => d.nom);
       const taux = data.map((d: any) => d.tauxReponse);
 
       console.log('Taux de Réponse:', data);

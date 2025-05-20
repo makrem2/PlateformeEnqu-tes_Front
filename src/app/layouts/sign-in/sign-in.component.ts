@@ -26,7 +26,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     ROLE_ENTREPRISE: '/entreprise',
   };
 
-  private returnUrl: string = '/';
+  private returnUrl: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,7 +43,7 @@ export class SignInComponent implements OnInit, OnDestroy {
       password: ['', Validators.required],
     });
 
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'];
 
     // Redirect if already logged in
     this.redirectIfLoggedIn();
@@ -90,9 +90,15 @@ export class SignInComponent implements OnInit, OnDestroy {
     const role = response.roles?.[0];
     this.tokenService.saveTokenAndRole(response.token, role, response.id);
 
-    // Navigate to returnUrl if defined, else fallback
-    const redirectTarget = this.returnUrl || this.roleRedirectUrls[role] || '/';
-    this.router.navigateByUrl(decodeURIComponent(redirectTarget));
+    const redirectTarget = decodeURIComponent(
+      this.returnUrl || this.roleRedirectUrls[role] || '/'
+    );
+
+    console.log('Redirecting to:', redirectTarget);
+
+    setTimeout(() => {
+      this.router.navigateByUrl(redirectTarget);
+    }, 0);
 
     this.resetFormState();
   }

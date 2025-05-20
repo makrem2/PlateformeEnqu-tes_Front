@@ -15,10 +15,13 @@ export class ReponseService {
     return this.http.post(`${this.apiUrl}/createReponses`, data);
   }
 
-
-
-  getReponsesByEnqueteAndEntreprise(enqueteId: string, entrepriseId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/getReponsesByEnqueteAndEntreprise/${enqueteId}/${entrepriseId}`);
+  getReponsesByEnqueteAndEntreprise(
+    enqueteId: string,
+    entrepriseId: string
+  ): Observable<any> {
+    return this.http.get(
+      `${this.apiUrl}/getReponsesByEnqueteAndEntreprise/${enqueteId}/${entrepriseId}`
+    );
   }
 
   getEnquetesRepondues(entrepriseId: string): Observable<any> {
@@ -29,6 +32,12 @@ export class ReponseService {
   }
 
   getAllEnquetesRepondues(entrepriseId: string): Observable<any> {
-  return this.http.get(`${this.apiUrl}/repondues/${entrepriseId}`);
-}
+    return this.http.get(`${this.apiUrl}/repondues/${entrepriseId}`);
+  }
+
+  //http://localhost:8081/api/reponses/getAllReponsesParEntreprise
+
+  getAllReponsesParEntreprise(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getAllReponsesParEntreprise`);
+  }
 }

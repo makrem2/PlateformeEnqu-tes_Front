@@ -53,7 +53,7 @@ export class EntrepriseDashboardComponent implements OnInit {
       .getReponsesParType(entrepriseId)
       .subscribe((data) => {
         const labels = data.map((d: any) => d.type);
-        const counts = data.map((d: any) => d.count);
+        const counts = data.map((d: any) => d.totalEntreprisesRepondues);
 
         new Chart('reponsesTypeChart', {
           type: 'bar',
@@ -73,7 +73,9 @@ export class EntrepriseDashboardComponent implements OnInit {
     this.statentrepriseService
       .getReponsesMensuelles(entrepriseId)
       .subscribe((data) => {
-        const labels = data.map((d: any) => d.month);
+        console.log('Data for responses by month:', data);
+
+        const labels = data.map((d: any) => d.mois);
         const totals = data.map((d: any) => d.total);
 
         new Chart('reponsesMensuellesChart', {

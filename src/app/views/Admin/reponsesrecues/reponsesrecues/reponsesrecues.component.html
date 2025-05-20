@@ -1,0 +1,44 @@
+<div *ngIf="loading" class="text-center mt-4">
+    <div class="spinner-border text-primary"></div>
+</div>
+
+<div *ngIf="!loading">
+    <div *ngFor="let item of data" class="mb-5">
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">🏢 {{ item.entreprise.nom }} ({{
+                    item.entreprise.email }})</h5>
+            </div>
+            <div class="card-body">
+                <div *ngFor="let enquete of item.enquetes" class="mb-4">
+                    <h6 class="text-secondary">📝 Enquête: {{ enquete.titre
+                        }}</h6>
+
+                    <div *ngFor="let q of enquete.questions"
+                        class="border rounded p-3 mb-2">
+                        <p class="mb-1"><strong>❓ Question:</strong> {{ q.texte
+                            }}</p>
+                        <ul *ngIf="q.reponses && q.reponses.length > 0"
+                            class="mb-0">
+                            <li *ngFor="let r of q.reponses">
+                                <strong>Réponse:</strong> {{ r.valeur }} |
+                                <strong>Date:</strong> {{ r.dateSoumission |
+                                date:'short' }} |
+                                <strong>Statut:</strong>
+                                <span [ngClass]="{
+                    'text-success': r.statut === 'ENVOYEE',
+                    'text-warning': r.statut === 'EN_ATTENTE',
+                    'text-danger': r.statut === 'NON_ENVOYEE'
+                  }">
+                                    {{ r.statut }}
+                                </span>
+                            </li>
+                        </ul>
+                        <p *ngIf="!q.reponses || q.reponses.length === 0"
+                            class="text-muted">Aucune réponse.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
