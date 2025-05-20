@@ -1,44 +1,82 @@
-<div *ngIf="loading" class="text-center mt-4">
-    <div class="spinner-border text-primary"></div>
+ <div
+    class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+    <h6 class="fw-semibold mb-0">📋 Réponses Reçues</h6>
+    <ul class="d-flex align-items-center gap-2">
+        <li class="fw-medium">
+            <a routerLink="/admin"
+                class="d-flex align-items-center gap-1 hover-text-primary">
+                Dashboard
+            </a>
+        </li>
+        <li>-</li>
+        <li class="fw-medium">📋 Réponses Reçues</li>
+    </ul>
 </div>
-
-<div *ngIf="!loading">
-    <div *ngFor="let item of data" class="mb-5">
-        <div class="card shadow-sm mb-3">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">🏢 {{ item.entreprise.nom }} ({{
-                    item.entreprise.email }})</h5>
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
+            <!-- Loading Spinner -->
+            <div *ngIf="loading" class="text-center my-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Chargement...</span>
+                </div>
+                <p>Chargement des réponses...</p>
             </div>
-            <div class="card-body">
-                <div *ngFor="let enquete of item.enquetes" class="mb-4">
-                    <h6 class="text-secondary">📝 Enquête: {{ enquete.titre
-                        }}</h6>
 
-                    <div *ngFor="let q of enquete.questions"
-                        class="border rounded p-3 mb-2">
-                        <p class="mb-1"><strong>❓ Question:</strong> {{ q.texte
-                            }}</p>
-                        <ul *ngIf="q.reponses && q.reponses.length > 0"
-                            class="mb-0">
-                            <li *ngFor="let r of q.reponses">
-                                <strong>Réponse:</strong> {{ r.valeur }} |
-                                <strong>Date:</strong> {{ r.dateSoumission |
-                                date:'short' }} |
-                                <strong>Statut:</strong>
-                                <span [ngClass]="{
-                    'text-success': r.statut === 'ENVOYEE',
-                    'text-warning': r.statut === 'EN_ATTENTE',
-                    'text-danger': r.statut === 'NON_ENVOYEE'
-                  }">
-                                    {{ r.statut }}
-                                </span>
-                            </li>
-                        </ul>
-                        <p *ngIf="!q.reponses || q.reponses.length === 0"
-                            class="text-muted">Aucune réponse.</p>
+            <!-- No Data Alert -->
+            <div *ngIf="!loading && data.length === 0"
+                class="alert alert-warning text-center">
+                Aucune donnée disponible pour cette enquête.
+            </div>
+
+            <!-- Data Table -->
+            <div *ngIf="!loading && data.length > 0">
+                <div *ngFor="let entreprise of data" class="mb-5">
+                    <h4 class="text-primary mb-3">🏢 Entreprise : {{
+                        entreprise.entreprise.nom }}</h4>
+
+                    <div *ngIf="entreprise.questions.length > 0"
+                        class="table-responsive">
+                        <table
+                            class="table border-primary-table mb-0 table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Question</th>
+                                    <th>Type</th>
+                                    <th>Réponse(s)</th>
+                                    <th>Date de soumission</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let question of entreprise.questions">
+                                    <td>{{ question.texte }}</td>
+                                    <td>{{ question.type }}</td>
+                                    <td>
+                                        <ng-container
+                                            *ngIf="question.reponses.length > 0; else noReponse">
+                                            <div
+                                                *ngFor="let reponse of question.reponses">
+                                                {{ reponse.valeur }}
+                                            </div>
+                                        </ng-container>
+                                        <ng-template #noReponse>
+                                            <em>Aucune réponse</em>
+                                        </ng-template>
+                                    </td>
+                                    <td>
+                                        <div
+                                            *ngFor="let reponse of question.reponses">
+                                            {{ reponse.dateSoumission ? (reponse.dateSoumission | date:'short') : 'Aucune réponse' }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

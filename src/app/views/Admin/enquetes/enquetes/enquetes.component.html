@@ -119,6 +119,13 @@
                                         </li>
                                     </ul>
                                 </div>
+
+                                <button
+                                    class="btn btn-sm btn-outline-info"
+                                    type="button"
+                                    [routerLink]="['/admin/enquete/reponses']" [queryParams]="{ id: enquete.enquete_id }">
+                                    Voir Reponse
+                                </button>
                             </td>
                         </tr>
                     </tbody>
@@ -316,7 +323,7 @@
                                                     </td>
                                                     <td>
                                                         <button
-                                                        (click)="editQuestion(q)"
+                                                            (click)="editQuestion(q)"
                                                             style="cursor: pointer;margin-left: 5px;margin-right: 5px;"
                                                             class="btn btn-warning">
                                                             <i
@@ -377,7 +384,8 @@
                         <label for="entrepriseIds" class="form-label">Select
                             Entreprise to Enroll:</label>
                         <select id="entrepriseIds" class="form-control" multiple
-                            formControlName="entrepriseIds" style="height: 5rem;">
+                            formControlName="entrepriseIds"
+                            style="height: 5rem;">
                             <option
                                 *ngFor="let item of Entreprise | entrepriseFilterPipe:searchText"
                                 [value]="item.id">{{ item.nom

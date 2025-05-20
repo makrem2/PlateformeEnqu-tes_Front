@@ -35,9 +35,12 @@ export class ReponseService {
     return this.http.get(`${this.apiUrl}/repondues/${entrepriseId}`);
   }
 
-  //http://localhost:8081/api/reponses/getAllReponsesParEntreprise
-
   getAllReponsesParEntreprise(): Observable<any> {
     return this.http.get(`${this.apiUrl}/getAllReponsesParEntreprise`);
+  }
+
+  //http://localhost:8081/api/reponses/getReponsesParEnqueteParEntreprise/2502854f-50a3-49ed-9b41-0ccc690f6041
+  getReponsesParEnqueteParEntreprise(enqueteId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getReponsesParEnqueteParEntreprise/${enqueteId}`);
   }
 }
