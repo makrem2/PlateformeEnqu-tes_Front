@@ -11,50 +11,104 @@
       </a>
     </li>
     <li>-</li>
-    <li class="fw-medium">Health Track</li>
+    <li class="fw-medium">apps</li>
   </ul>
 </div>
 <div class="row gy-4">
   <div class="col-xxxl-12">
     <div class="row gy-4">
+
+      <!-- Total entreprises -->
+      <div class="col-xxl-3 col-xl-4 col-sm-6">
+        <div class="card p-3 shadow-2 radius-8 h-100 bg-gradient-end-1">
+          <div class="card-body p-0">
+            <div class="d-flex align-items-center gap-2">
+              <span
+                class="w-48-px h-48-px bg-info-100 text-info-600 d-flex justify-content-center align-items-center rounded-circle">
+                <i class="ri-building-fill"></i>
+              </span>
+              <div>
+                <h6 class="fw-semibold mb-2">{{ stat?.totalEntreprises }}</h6>
+                <span class="text-sm text-secondary-light">Entreprises
+                  enregistrées</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total enquêtes envoyées -->
+      <div class="col-xxl-3 col-xl-4 col-sm-6">
+        <div class="card p-3 shadow-2 radius-8 h-100 bg-gradient-end-3">
+          <div class="card-body p-0">
+            <div class="d-flex align-items-center gap-2">
+              <span
+                class="w-48-px h-48-px bg-warning-100 text-warning-600 d-flex justify-content-center align-items-center rounded-circle">
+                <i class="ri-survey-fill"></i>
+              </span>
+              <div>
+                <h6 class="fw-semibold mb-2">{{ stat?.totalEnquetes }}</h6>
+                <span class="text-sm text-secondary-light">Total des
+                  enquêtes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total réponses reçues -->
+      <div class="col-xxl-3 col-xl-4 col-sm-6">
+        <div class="card p-3 shadow-2 radius-8 h-100 bg-gradient-end-2">
+          <div class="card-body p-0">
+            <div class="d-flex align-items-center gap-2">
+              <span
+                class="w-48-px h-48-px bg-success-100 text-success-600 d-flex justify-content-center align-items-center rounded-circle">
+                <i class="ri-check-double-line"></i>
+              </span>
+              <div>
+                <h6 class="fw-semibold mb-2">{{ stat?.totalReponses }}</h6>
+                <span class="text-sm text-secondary-light">Réponses
+                  reçues</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Taux de participation -->
       <div class="col-xxl-3 col-xl-4 col-sm-6">
         <div class="card p-3 shadow-2 radius-8 h-100 bg-gradient-end-4">
           <div class="card-body p-0">
-            <div
-              class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
-              <div class="d-flex align-items-center gap-2">
-                <span
-                  class="mb-0 w-48-px h-48-px bg-lilac-100 text-lilac-600 flex-shrink-0 text-white d-flex justify-content-center align-items-center rounded-circle h6 mb-0">
-                  <i class="ri-award-fill"></i>
-                </span>
-                <div>
-                  <h6 class="fw-semibold mb-2">0</h6>
-                  <span
-                    class="fw-medium text-secondary-light text-sm">admin</span>
-                </div>
+            <div class="d-flex align-items-center gap-2">
+              <span
+                class="w-48-px h-48-px bg-primary-100 text-primary-600 d-flex justify-content-center align-items-center rounded-circle">
+                <i class="ri-pie-chart-fill"></i>
+              </span>
+              <div>
+                <h6 class="fw-semibold mb-2">{{ stat?.tauxReponse }}%</h6>
+                <span class="text-sm text-secondary-light">Taux de
+                  participation</span>
               </div>
             </div>
-            <p class="text-sm mb-0">
-              <span class="text-lilac-600">0</span> nouvel admin
-            </p>
           </div>
         </div>
       </div>
-      <div class="col-xxl-6">
-        <div class="card h-100">
-          <div class="card-header">
-            <div
-              class="d-flex align-items-center flex-wrap gap-2 justify-content-between">
-              <h6 class="mb-2 fw-bold text-lg mb-0">Patient par âge</h6>
-            </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card p-3 shadow-sm">
+            <h6>🏢 Enquêtes par entreprise</h6>
+            <canvas id="enquetesParEntrepriseChart"></canvas>
           </div>
-          <div class="card-body p-24">
-            <div class="card shadow-sm p-4">
-                test
-            </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card p-3 shadow-sm">
+            <h6>📈 Taux de réponse par entreprise</h6>
+            <canvas id="tauxReponseEntrepriseChart"></canvas>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>

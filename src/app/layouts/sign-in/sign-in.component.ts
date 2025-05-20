@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { AuthenticationService } from 'src/app/_services/Authentification/authentication.service';
@@ -26,12 +26,15 @@ export class SignInComponent implements OnInit, OnDestroy {
     ROLE_ENTREPRISE: '/entreprise',
   };
 
+  private returnUrl: string = '/';
+
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
     private router: Router,
     private toastr: ToastrService,
-    private tokenService: TokenServiceService
+    private tokenService: TokenServiceService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +42,8 @@ export class SignInComponent implements OnInit, OnDestroy {
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
+
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
     // Redirect if already logged in
     this.redirectIfLoggedIn();
@@ -84,10 +89,10 @@ export class SignInComponent implements OnInit, OnDestroy {
   private handleSuccessfulLogin(response: any): void {
     const role = response.roles?.[0];
     this.tokenService.saveTokenAndRole(response.token, role, response.id);
-    window.location.reload();
-    // Determine the redirect URL based on role
-    const redirectUrl = this.roleRedirectUrls[role] || '/';
-    this.router.navigate([redirectUrl]);
+
+    // Navigate to returnUrl if defined, else fallback
+    const redirectTarget = this.returnUrl || this.roleRedirectUrls[role] || '/';
+    this.router.navigateByUrl(decodeURIComponent(redirectTarget));
 
     this.resetFormState();
   }

@@ -1,1 +1,115 @@
-<p>entreprise-dashboard works!</p>
+ <div
+    class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+    <h6 class="fw-semibold mb-0">Dashboard</h6>
+    <ul class="d-flex align-items-center gap-2">
+        <li class="fw-medium">
+            <a href="index.html"
+                class="d-flex align-items-center gap-1 hover-text-primary">
+                Dashboard
+            </a>
+        </li>
+        <li>-</li>
+        <li class="fw-medium">Medical</li>
+    </ul>
+</div>
+
+<div class="row gy-4">
+    <div class="col-xxxl-12">
+        <div class="row gy-4">
+
+            <!-- Total enquêtes reçues -->
+            <div class="col-xxl-3 col-xl-4 col-sm-6">
+                <div class="card p-3 shadow-2 radius-8 h-100 bg-gradient-end-6">
+                    <div class="card-body p-0">
+                        <div
+                            class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
+                            <div class="d-flex align-items-center gap-2">
+                                <span
+                                    class="mb-0 w-48-px h-48-px bg-cyan-100 text-cyan-600 flex-shrink-0 text-white d-flex justify-content-center align-items-center rounded-circle h6 mb-0">
+                                    <i class="ri-survey-fill"></i>
+                                </span>
+                                <div>
+                                    <h6 class="fw-semibold mb-2">{{
+                                        stat?.['totalReçues'] }}</h6>
+                                    <span
+                                        class="fw-medium text-secondary-light text-sm">Enquêtes
+                                        reçues</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-sm mb-0">Nombre total d’enquêtes reçues
+                            par l’entreprise</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enquêtes répondues -->
+            <div class="col-xxl-3 col-xl-4 col-sm-6">
+                <div class="card p-3 shadow-2 radius-8 h-100 bg-gradient-end-4">
+                    <div class="card-body p-0">
+                        <div
+                            class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
+                            <div class="d-flex align-items-center gap-2">
+                                <span
+                                    class="mb-0 w-48-px h-48-px bg-success-100 text-success-600 flex-shrink-0 text-white d-flex justify-content-center align-items-center rounded-circle h6 mb-0">
+                                    <i class="ri-checkbox-circle-fill"></i>
+                                </span>
+                                <div>
+                                    <h6 class="fw-semibold mb-2">{{
+                                        stat?.['totalRépondues'] }}</h6>
+                                    <span
+                                        class="fw-medium text-secondary-light text-sm">Enquêtes
+                                        répondues</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-sm mb-0">Nombre d’enquêtes déjà
+                            répondues</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Taux de réponse -->
+            <div class="col-xxl-3 col-xl-4 col-sm-6">
+                <div class="card p-3 shadow-2 radius-8 h-100 bg-gradient-end-1">
+                    <div class="card-body p-0">
+                        <div
+                            class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
+                            <div class="d-flex align-items-center gap-2">
+                                <span
+                                    class="mb-0 w-48-px h-48-px bg-warning-100 text-warning-600 flex-shrink-0 text-white d-flex justify-content-center align-items-center rounded-circle h6 mb-0">
+                                    <i class="ri-bar-chart-fill"></i>
+                                </span>
+                                <div>
+                                    <h6 class="fw-semibold mb-2">{{
+                                        stat?.tauxReponse }}%</h6>
+                                    <span
+                                        class="fw-medium text-secondary-light text-sm">Taux
+                                        de réponse</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-sm mb-0">Pourcentage de réponses sur les
+                            enquêtes reçues</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card p-3 shadow-sm">
+                        <h6>📊 Réponses par type d’enquête</h6>
+                        <canvas id="reponsesTypeChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card p-3 shadow-sm">
+                        <h6>📅 Réponses mensuelles</h6>
+                        <canvas id="reponsesMensuellesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

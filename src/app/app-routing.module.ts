@@ -29,6 +29,8 @@ const routes: Routes = [
     {path:'myprofile' , loadChildren:()=>import('./views/Entreprise/myprofile/myprofile.module').then(m=>m.MyprofileModule)},
     {path:'enquetes-reçues' , loadChildren:()=>import('./views/Entreprise/enquetes-reçues/enquetes-reçues.module').then(m=>m.EnquetesReçuesModule)},
     {path:'enquetes-repondues' , loadChildren:()=>import('./views/Entreprise/enquetes-repondues/enquetes-repondues.module').then(m=>m.EnquetesReponduesModule)},
+    {path:'historique' , loadChildren:()=>import('./views/Entreprise/historique-entreprise/historique-entreprise.module').then(m=>m.HistoriqueEntrepriseModule)},
+    {path:'enquetes-repondues-details' , loadChildren:()=>import('./views/Entreprise/enquetes-repondues-details/enquetes-repondues-details.module').then(m=>m.EnquetesReponduesDetailsModule)},
 
   ]},
   {path:'',component:SignInComponent},

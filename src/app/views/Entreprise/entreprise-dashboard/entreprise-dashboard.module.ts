@@ -3,7 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { EntrepriseDashboardRoutingModule } from './entreprise-dashboard-routing.module';
 import { EntrepriseDashboardComponent } from './entreprise-dashboard/entreprise-dashboard.component';
-
+import {
+  BaseChartDirective,
+  provideCharts,
+  withDefaultRegisterables,
+} from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -11,7 +15,9 @@ import { EntrepriseDashboardComponent } from './entreprise-dashboard/entreprise-
   ],
   imports: [
     CommonModule,
-    EntrepriseDashboardRoutingModule
-  ]
+    EntrepriseDashboardRoutingModule,
+    BaseChartDirective
+  ],
+    providers: [provideCharts(withDefaultRegisterables())],
 })
 export class EntrepriseDashboardModule { }

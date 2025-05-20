@@ -1,0 +1,68 @@
+<div
+    class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+    <h6 class="fw-semibold mb-0">Historique des enquêtes répondues</h6>
+    <ul class="d-flex align-items-center gap-2">
+        <li class="fw-medium">
+            <a routerLink="/entreprise"
+                class="d-flex align-items-center gap-1 hover-text-primary">
+                Dashboard
+            </a>
+        </li>
+        <li>-</li>
+        <li class="fw-medium">Historique</li>
+    </ul>
+</div>
+
+<div class="row gy-4">
+    <div class="card-body">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Enquêtes répondues</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table border-primary-table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Titre</th>
+                                    <th>Type</th>
+                                    <th>Statut</th>
+                                    <th>Date de réponse</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let enquete of enquetesRepondues; let i = index">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ enquete.titre }}</td>
+                                    <td>{{ enquete.type }}</td>
+                                    <td>
+                                        <span class="badge bg-info text-dark">{{
+                                            enquete.statut }}</span>
+                                    </td>
+                                    <td>{{ enquete.createdAt | date:
+                                        'mediumDate' }}</td>
+                                    <td>
+                                        <a
+                                            [routerLink]="['/entreprise/enquetes-repondues-details']" [queryParams]="{ id: enquete.enquete_id }"
+                                            class="btn btn-sm btn-primary">
+                                            Voir les détails
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="enquetesRepondues.length === 0">
+                                    <td colspan="6"
+                                        class="text-center text-muted">Aucune
+                                        enquête répondue.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div><!-- card end -->
+        </div>
+    </div>
+</div>

@@ -1,42 +1,62 @@
-<div class="card p-4">
-    <h4 class="mb-4">📝 Créer une nouvelle enquête</h4>
+ <div
+    class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+    <h6 class="fw-semibold mb-0">📝 Créer une nouvelle enquête</h6>
+    <ul class="d-flex align-items-center gap-2">
+        <li class="fw-medium">
+            <a href="index.html"
+                class="d-flex align-items-center gap-1 hover-text-primary">
+                Dashboard
+            </a>
+        </li>
+        <li>-</li>
+        <li class="fw-medium">Créer une nouvelle enquête</li>
+    </ul>
+</div>
 
-    <form [formGroup]="enqueteForm" (ngSubmit)="onSubmit()">
-        <div class="mb-3">
-            <label>Titre</label>
-            <input class="form-control" formControlName="titre" />
-        </div>
+<div class="row gy-4">
+    <div class="col-lg-12">
+        <div class="card h-100">
+            <div class="card-body">
+                <form [formGroup]="enqueteForm" (ngSubmit)="onSubmit()">
+                    <div class="mb-3">
+                        <label>Titre</label>
+                        <input class="form-control" formControlName="titre" />
+                    </div>
 
-        <div class="mb-3">
-            <label>Description</label>
-            <textarea class="form-control" rows="3"
-                formControlName="description"></textarea>
-        </div>
+                    <div class="mb-3">
+                        <label>Description</label>
+                        <textarea class="form-control" rows="3"
+                            formControlName="description"></textarea>
+                    </div>
 
-        <div class="mb-3">
-            <label>Type</label>
-            <select class="form-select" formControlName="type">
-                <option value="MENSUELLE">Mensuelle</option>
-                <option value="TRIMESTRIELLE">Trimestrielle</option>
-                <option value="SEMESTRIELLE">Semestrielle</option>
-            </select>
-        </div>
+                    <div class="mb-3">
+                        <label>Type</label>
+                        <select class="form-select" formControlName="type">
+                            <option value="MENSUELLE">Mensuelle</option>
+                            <option value="TRIMESTRIELLE">Trimestrielle</option>
+                            <option value="SEMESTRIELLE">Semestrielle</option>
+                        </select>
+                    </div>
 
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label>Date de début</label>
-                <input type="date" class="form-control"
-                    formControlName="dateDebut" />
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label>Date de début</label>
+                            <input type="date" class="form-control"
+                                formControlName="dateDebut" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Date de fin</label>
+                            <input type="date" class="form-control"
+                                formControlName="dateFin" />
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" [disabled]="loading">
+                        {{ loading ? 'Création en cours...' : 'Créer Enquête' }}
+                    </button>
+                </form>
+
             </div>
-            <div class="col-md-6 mb-3">
-                <label>Date de fin</label>
-                <input type="date" class="form-control"
-                    formControlName="dateFin" />
-            </div>
         </div>
-
-        <button class="btn btn-primary" [disabled]="loading">
-            {{ loading ? 'Création en cours...' : 'Créer Enquête' }}
-        </button>
-    </form>
+    </div>
 </div>

@@ -184,32 +184,11 @@ export class EnquetesComponent implements OnInit {
     }
   }
 
-  // submitQuestion(): void {
-  //   if (this.questionForm.invalid) return;
-  //   const { texte, type, options } = this.questionForm.value;
-  //   const payload = {
-  //     texte,
-  //     type,
-  //     options:
-  //       type == 'CHOIX' && options
-  //         ? options.split(',').map((opt: string) => opt.trim())
-  //         : null,
-  //     enquete_id: this.enquete_id,
-  //   };
-  //   this.questionService.createQuestion(payload).subscribe({
-  //     next: () => {
-  //       this.toastr.success('Question ajoutée avec succès ✅');
-  //       this.closeModal();
-  //     },
-  //     error: () =>
-  //       this.toastr.error("Erreur lors de l'ajout de la question ❌"),
-  //   });
-  // }
-
   changestatusToEN_COURS() {
     this.enqueteService.changestatusToEN_COURS(this.enquete_id).subscribe({
       next: () => {
         this.toastr.success('Enquête mise à jour avec succès ✅');
+        this.loadEnquetes();
         this.closeEditModalstatus();
       },
       error: () =>
@@ -257,10 +236,9 @@ export class EnquetesComponent implements OnInit {
           this.toastr.success("Enquête assignée à l'entreprise ✅");
           this.closeEntreprise();
         },
-        error: () =>
-          this.toastr.error(
-            "Erreur lors de l'assignation de l'enquête à l'entreprise ❌"
-          ),
+        error: (err) => {
+          this.toastr.error(err.error.message, '❌ Erreur');
+        },
       });
   }
 
