@@ -211,7 +211,7 @@ export class UtilisateursComponent implements OnInit, OnDestroy {
   }
 
   Edit_Voir_User(code: any) {
-    this.router.navigate(['/admin/user/edit'], {
+    this.router.navigate(['/admin/entreprise/edit'], {
       queryParams: { UserCode: code },
     });
   }

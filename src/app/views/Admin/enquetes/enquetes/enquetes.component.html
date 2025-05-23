@@ -123,7 +123,8 @@
                                 <button
                                     class="btn btn-sm btn-outline-info"
                                     type="button"
-                                    [routerLink]="['/admin/enquete/reponses']" [queryParams]="{ id: enquete.enquete_id }">
+                                    [routerLink]="['/admin/enquete/reponses']"
+                                    [queryParams]="{ id: enquete.enquete_id }">
                                     Voir Reponse
                                 </button>
                             </td>
@@ -146,7 +147,8 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">➕ Ajouter une Question</h5>
+                <h5 class="modal-title">{{editingQuestionId ?
+                    "➕ Update une Question": "➕ Ajouter une Question "}}</h5>
                 <button type="button" class="btn-close"
                     (click)="closeModal()"></button>
             </div>
@@ -173,8 +175,10 @@
                             formControlName="options" />
                     </div>
                     <div class="text-end">
-                        <button type="submit" class="btn btn-success">✅
-                            Ajouter</button>
+                        <button type="submit"
+                            class="btn btn-success">{{editingQuestionId ?
+                            "➕ Update Question":
+                            "✅ Ajouter Question "}}</button>
                     </div>
                 </form>
             </div>
